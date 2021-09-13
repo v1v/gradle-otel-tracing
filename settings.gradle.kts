@@ -9,3 +9,13 @@
 
 rootProject.name = "gradle-otel-tracing"
 include("otel-gradle-tracing")
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven(url="https://jitpack.io")
+    }
+    plugins {
+        id("com.github.jkwatson.gradle-otel-tracing") version "0.0.2"
+    }
+}

@@ -5,6 +5,7 @@ plugins {
     `maven-publish`
 
     id("org.jetbrains.kotlin.jvm") version "1.4.31"
+    id("com.github.jkwatson.gradle-otel-tracing") version "0.0.2"
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
