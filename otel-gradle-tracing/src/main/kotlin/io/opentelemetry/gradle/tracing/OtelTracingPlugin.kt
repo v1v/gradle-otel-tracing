@@ -81,7 +81,10 @@ class OtelTracingPlugin : Plugin<Project> {
     }
 
     private fun initializeOpenTelemetry(project: Project): OpenTelemetrySdk {
-        System.setProperty("otel.service.name", project.name + " Build")
+        // OTEL_SERVICE_NAME env variable has a higher precedence
+        if (System.getenv("OTEL_SERVICE_NAME") == null) {
+            System.setProperty("otel.service.name", project.name + " Build")
+        }
         val sdk = OpenTelemetrySdkAutoConfiguration.initialize()
         //this is a super-hack to undo what the auto-configure module does by default, otherwise the global pollutes
         //the gradle daemon's JVM state.
