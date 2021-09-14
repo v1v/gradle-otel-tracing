@@ -2,6 +2,7 @@ package io.opentelemetry.gradle.tracing
 
 import io.opentelemetry.api.GlobalOpenTelemetry
 import io.opentelemetry.api.trace.Span
+import io.opentelemetry.api.trace.SpanKind
 import io.opentelemetry.api.trace.StatusCode
 import io.opentelemetry.api.trace.Tracer
 import io.opentelemetry.context.Context
@@ -25,6 +26,7 @@ class OtelTracingPlugin : Plugin<Project> {
         val startParameters = project.gradle.startParameter.toString()
         val rootProjectSpan: Span = tracer.spanBuilder(project.displayName)
             .setAttribute("gradleStartParameters", startParameters)
+            .setSpanKind(SpanKind.SERVER)
             .startSpan()
         project.gradle.addBuildListener(object : BuildListener {
             override fun settingsEvaluated(settings: Settings) {}
